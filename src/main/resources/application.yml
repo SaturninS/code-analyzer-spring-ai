@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: code-analyzer-spring-ai
+  ai:
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY}
+      chat:
+        options:
+          model: claude-haiku-4-5-20251001
+          max-tokens: 2048
+          temperature: 0.1  # Faible température = réponses plus déterministes
+
+  threads:
+    virtual:
+      enabled: true  # Java 21 — Project Loom : threads virtuels pour les appels LLM bloquants
+
+server:
+  port: 8080
+  error:
+    include-stacktrace: always
+    include-message: always
+
+logging:
+  level:
+    org.springframework.ai: DEBUG
