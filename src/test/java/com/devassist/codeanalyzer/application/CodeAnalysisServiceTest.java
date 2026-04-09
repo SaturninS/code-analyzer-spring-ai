@@ -3,9 +3,10 @@ package com.devassist.codeanalyzer.application;
 import com.devassist.codeanalyzer.domain.model.CodeAnalysis;
 import com.devassist.codeanalyzer.domain.model.CodeSnippet;
 import com.devassist.codeanalyzer.domain.port.CodeAnalysisPort;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -19,8 +20,12 @@ public class CodeAnalysisServiceTest {
     @Mock
     private CodeAnalysisPort codeAnalysisPort;
 
-    @InjectMocks
     private CodeAnalysisService codeAnalysisService;
+
+    @BeforeEach
+    void setUp() {
+        codeAnalysisService = new CodeAnalysisService(codeAnalysisPort, new SimpleMeterRegistry());
+    }
 
     @Test
     void analyseShouldDelegateToPort(){

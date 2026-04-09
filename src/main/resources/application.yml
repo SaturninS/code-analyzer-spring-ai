@@ -14,11 +14,26 @@ spring:
     virtual:
       enabled: true  # Java 21 — Project Loom : threads virtuels pour les appels LLM bloquants
 
+  cache:
+    type: caffeine
+    cache-names: analyses, reviews, summaries
+    caffeine:
+      spec: maximumSize=200,expireAfterWrite=60m
+
 server:
   port: 8080
   error:
     include-stacktrace: always
     include-message: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, metrics, prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
 
 logging:
   level:
