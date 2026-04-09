@@ -15,7 +15,7 @@ public class AnthropicCodeAnalysisAdapter implements CodeAnalysisPort {
     public AnthropicCodeAnalysisAdapter(ChatClient.Builder builder) {
         this.chatClient = builder
                 .defaultSystem("""
-                Tu es un expert en code review avec 15 ans d'expérience.
+                Tu es un expert en code review.
                 Tu analyses du code de façon précise et actionnable.
                 Tu réponds TOUJOURS en JSON valide, sans markdown, sans explication.
                 """)
@@ -77,7 +77,6 @@ public class AnthropicCodeAnalysisAdapter implements CodeAnalysisPort {
         Résume en UNE SEULE phrase claire ce que fait ce code %s.
         Commence par un verbe d'action. Maximum 20 mots.
         Retourne uniquement la phrase, sans ponctuation finale, sans guillemets.
-        
         Code : %s
         """.formatted(snippet.language(), snippet.code());
 
